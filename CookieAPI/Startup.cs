@@ -47,6 +47,7 @@ namespace CookieAPI
 
             app.UseHttpsRedirection();
 
+            app.UseMiddleware<TokenMiddleware>();
             app.UseRouting();
 
             app.UseAuthorization();
