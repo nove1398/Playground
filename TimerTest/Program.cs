@@ -1,23 +1,35 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimerTest
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main(string[] args)
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var host = CreateHostBuilder(args).Build();
+            host.RunAsync();
+            Application.Run(host.Services.GetRequiredService<Form1>());
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseWindowsService()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<TimerCore>();
+                    services.AddTransient<Form1>();
+                });
     }
 }

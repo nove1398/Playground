@@ -29,7 +29,7 @@ namespace TimerTest
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.statusListBox = new System.Windows.Forms.ListBox();
@@ -37,28 +37,28 @@ namespace TimerTest
             this.stopServiceButton = new System.Windows.Forms.Button();
             this.statusButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.serviceStartedRadio = new System.Windows.Forms.RadioButton();
-            this.serviceStartingRadio = new System.Windows.Forms.RadioButton();
-            this.serviceRunningRadio = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.serviceRunningRadio = new System.Windows.Forms.RadioButton();
+            this.serviceStartingRadio = new System.Windows.Forms.RadioButton();
+            this.serviceStartedRadio = new System.Windows.Forms.RadioButton();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(168, 112);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox.Location = new System.Drawing.Point(8, 8);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(168, 112);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(232, 16);
+            this.label1.Location = new System.Drawing.Point(248, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(284, 41);
             this.label1.TabIndex = 1;
@@ -91,6 +91,7 @@ namespace TimerTest
             this.startServiceButton.TabIndex = 3;
             this.startServiceButton.Text = "Start Service";
             this.startServiceButton.UseVisualStyleBackColor = true;
+            this.startServiceButton.Click += new System.EventHandler(this.StartServiceButton_Click);
             // 
             // stopServiceButton
             // 
@@ -126,10 +127,45 @@ namespace TimerTest
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Service Status";
             // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Enabled = false;
+            this.radioButton4.Location = new System.Drawing.Point(8, 128);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(119, 25);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.Text = "radioButton4";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // serviceRunningRadio
+            // 
+            this.serviceRunningRadio.AutoSize = true;
+            this.serviceRunningRadio.Enabled = false;
+            this.serviceRunningRadio.Location = new System.Drawing.Point(8, 96);
+            this.serviceRunningRadio.Name = "serviceRunningRadio";
+            this.serviceRunningRadio.Size = new System.Drawing.Size(141, 25);
+            this.serviceRunningRadio.TabIndex = 2;
+            this.serviceRunningRadio.Text = "Service Running";
+            this.serviceRunningRadio.UseVisualStyleBackColor = true;
+            // 
+            // serviceStartingRadio
+            // 
+            this.serviceStartingRadio.AutoSize = true;
+            this.serviceStartingRadio.Enabled = false;
+            this.serviceStartingRadio.Location = new System.Drawing.Point(8, 64);
+            this.serviceStartingRadio.Name = "serviceStartingRadio";
+            this.serviceStartingRadio.Size = new System.Drawing.Size(136, 25);
+            this.serviceStartingRadio.TabIndex = 1;
+            this.serviceStartingRadio.Text = "Service Starting";
+            this.serviceStartingRadio.UseVisualStyleBackColor = true;
+            // 
             // serviceStartedRadio
             // 
             this.serviceStartedRadio.AutoSize = true;
             this.serviceStartedRadio.BackColor = System.Drawing.SystemColors.Control;
+            this.serviceStartedRadio.Checked = true;
+            this.serviceStartedRadio.Enabled = false;
             this.serviceStartedRadio.Location = new System.Drawing.Point(8, 32);
             this.serviceStartedRadio.Name = "serviceStartedRadio";
             this.serviceStartedRadio.Size = new System.Drawing.Size(139, 25);
@@ -138,43 +174,10 @@ namespace TimerTest
             this.serviceStartedRadio.Text = "Service Stopped";
             this.serviceStartedRadio.UseVisualStyleBackColor = false;
             // 
-            // serviceStartingRadio
-            // 
-            this.serviceStartingRadio.AutoSize = true;
-            this.serviceStartingRadio.Location = new System.Drawing.Point(8, 64);
-            this.serviceStartingRadio.Name = "serviceStartingRadio";
-            this.serviceStartingRadio.Size = new System.Drawing.Size(136, 25);
-            this.serviceStartingRadio.TabIndex = 1;
-            this.serviceStartingRadio.TabStop = true;
-            this.serviceStartingRadio.Text = "Service Starting";
-            this.serviceStartingRadio.UseVisualStyleBackColor = true;
-            // 
-            // serviceRunningRadio
-            // 
-            this.serviceRunningRadio.AutoSize = true;
-            this.serviceRunningRadio.Location = new System.Drawing.Point(8, 96);
-            this.serviceRunningRadio.Name = "serviceRunningRadio";
-            this.serviceRunningRadio.Size = new System.Drawing.Size(141, 25);
-            this.serviceRunningRadio.TabIndex = 2;
-            this.serviceRunningRadio.TabStop = true;
-            this.serviceRunningRadio.Text = "Service Running";
-            this.serviceRunningRadio.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(8, 128);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(119, 25);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(824, 681);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusButton);
@@ -182,11 +185,11 @@ namespace TimerTest
             this.Controls.Add(this.startServiceButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -197,7 +200,7 @@ namespace TimerTest
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox statusListBox;
