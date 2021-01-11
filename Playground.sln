@@ -23,9 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService1", "WorkerService1\WorkerService1.csproj", "{B52B7F3F-C113-4BD9-A418-6F9F245A8258}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieBlazor", "CookieBlazor\CookieBlazor.csproj", "{5F474523-2620-4040-B09A-EE0D15A64339}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieBlazor", "CookieBlazor\CookieBlazor.csproj", "{5F474523-2620-4040-B09A-EE0D15A64339}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieAPI", "CookieAPI\CookieAPI.csproj", "{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAPI", "CookieAPI\CookieAPI.csproj", "{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTest", "TimerTest\TimerTest.csproj", "{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

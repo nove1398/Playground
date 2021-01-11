@@ -15,15 +15,18 @@ namespace CookieAPI
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<TokenMiddleware> _logger;
+        private Sample _params;
 
-        public TokenMiddleware(RequestDelegate next, ILogger<TokenMiddleware> logger)
+        public TokenMiddleware(RequestDelegate next, ILogger<TokenMiddleware> logger, Sample param)
         {
             _next = next;
             _logger = logger;
+            _params = param;
         }
 
         public Task Invoke(HttpContext context)
         {
+            _logger.LogInformation($"params: {_params.Test}");
             _logger.LogInformation(context.Request.Path);
             // If the request path doesn't match, skip
             if (!context.Request.Path.Equals("/toke", StringComparison.Ordinal))

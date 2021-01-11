@@ -27,7 +27,7 @@ namespace CookieAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(int page, int pageSize)
+        public IActionResult Get(int page = 1, int pageSize = 20)
         {
             if (!string.IsNullOrEmpty(_httpContextAccessor.HttpContext.Request.Cookies["CookieMonster"]))
             {
