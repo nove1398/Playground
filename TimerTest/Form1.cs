@@ -63,6 +63,9 @@ namespace TimerTest
         private void AddNewLog(string logMessage)
         {
             StatusList.Add(logMessage);
+            StatusList.Reverse();
+            statusListBox.DataSource = null;
+            statusListBox.DataSource = StatusList;
         }
 
         private void StatusButton_Click(object sender, EventArgs e)
