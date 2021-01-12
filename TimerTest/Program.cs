@@ -29,7 +29,7 @@ namespace TimerTest
                 .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddMediatR(typeof(Program));
+                    services.AddMediatR(typeof(Program).Assembly);
                     services.AddHostedService<TimerCore>();
                     services.AddTransient<Form1>();
                 });

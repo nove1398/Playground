@@ -113,7 +113,7 @@ namespace TimerTest
             this.statusButton.TabIndex = 5;
             this.statusButton.Text = "Service Status";
             this.statusButton.UseVisualStyleBackColor = true;
-            this.statusButton.Click += new System.EventHandler(this.statusButton_Click);
+            this.statusButton.Click += new System.EventHandler(this.StatusButton_Click);
             // 
             // groupBox1
             // 

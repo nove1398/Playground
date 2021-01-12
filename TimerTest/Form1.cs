@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace TimerTest
 {
@@ -26,6 +27,7 @@ namespace TimerTest
             ServiceStates[0] = serviceStoppedRadio;
             ServiceStates[1] = serviceStartingRadio;
             ServiceStates[2] = serviceRunningRadio;
+            statusListBox.DataSource = StatusList;
         }
 
         private void ClearServiceStatus()
@@ -48,21 +50,14 @@ namespace TimerTest
         private void StartServiceButton_Click(object sender, EventArgs e)
         {
             _logger.LogInformation("Pressed");
-            _mediator.Publish(new ServiceController
-            {
-                Message = "I am a ping",
-                ActionToBeTaken = ServiceController.Action.Start
-            });
-            statusListBox.DataSource = StatusList;
+            var respoonse = _mediator.Send(new ServiceCommands.Query(ServiceCommands.QueryType.Start)).GetAwaiter().GetResult();
+            AddNewLog(respoonse.message);
         }
 
         private void StopServiceButton_Click(object sender, EventArgs e)
         {
-            _mediator.Publish(new ServiceController
-            {
-                Message = "Pong",
-                ActionToBeTaken = ServiceController.Action.Stop
-            });
+            var respoonse = _mediator.Send(new ServiceCommands.Query(ServiceCommands.QueryType.Stop)).GetAwaiter().GetResult();
+            AddNewLog(respoonse.message);
         }
 
         private void AddNewLog(string logMessage)
@@ -70,13 +65,10 @@ namespace TimerTest
             StatusList.Add(logMessage);
         }
 
-        private void statusButton_Click(object sender, EventArgs e)
+        private void StatusButton_Click(object sender, EventArgs e)
         {
-            _mediator.Publish(new ServiceController
-            {
-                Message = "Pong",
-                ActionToBeTaken = ServiceController.Action.Status
-            });
+            var respoonse = _mediator.Send(new ServiceCommands.Query(ServiceCommands.QueryType.Status)).GetAwaiter().GetResult();
+            AddNewLog(respoonse.message);
         }
     }
 }

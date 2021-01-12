@@ -6,20 +6,19 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static TimerTest.ServiceCommands;
 
 namespace TimerTest
 {
-    public class TimerCore : BackgroundService, INotificationHandler<ServiceController>
+    public class TimerCore : BackgroundService, IRequestHandler<Query, Response>
     {
         private readonly ILogger<TimerCore> _logger;
         private CancellationTokenSource _stoppingtoken = new CancellationTokenSource();
-        private DateTime CurrentRunningTime = new DateTime();
-        private IMediator _mediatr;
+        private DateTime CurrentRunningTime;
 
-        public TimerCore(ILogger<TimerCore> logger, IMediator mediatr)
+        public TimerCore(ILogger<TimerCore> logger)
         {
             _logger = logger;
-            _mediatr = mediatr;
             CurrentRunningTime = DateTime.UtcNow;
         }
 
@@ -31,46 +30,40 @@ namespace TimerTest
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Consume Scoped Service Hosted Service is stopping.");
-
+            string[] lines = new string[] { $"Stopped at: {DateTime.UtcNow}" };
+            System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\ServiceStopped.txt", lines);
             await base.StopAsync(_stoppingtoken.Token);
         }
 
         private async Task DoWork(CancellationToken cancellationToken)
         {
-            while (!_stoppingtoken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 Debug.WriteLine("Ran");
-                string[] lines = new string[] { DateTime.UtcNow.ToShortDateString() };
-                System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\Service.txt", lines);
                 await Task.Delay(1000, cancellationToken);
             }
         }
 
-        public Task Handle(ServiceController notification, CancellationToken cancellationToken)
+        public Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            switch (notification.ActionToBeTaken)
+            switch (request.queryType)
             {
-                case ServiceController.Action.Start:
-                    MessageBox.Show(notification.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
+                case QueryType.Start:
+                    return Task.FromResult(new Response("Service started"));
 
-                case ServiceController.Action.Stop:
-                    _stoppingtoken.Cancel(true);
-                    string[] lines = new string[] { notification.Message };
-                    System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\PingHandler.txt", lines);
-                    break;
+                case QueryType.Stop:
+                    string[] lines = new string[] { $"Stopped at: {DateTime.UtcNow}" };
+                    System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\ServiceStopped.txt", lines);
+                    _stoppingtoken.Cancel();
+                    return Task.FromResult(new Response("Service started"));
 
-                case ServiceController.Action.Cancel:
-                    MessageBox.Show(notification.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case ServiceController.Action.Status:
-                    _mediatr.Publish(new ServiceResponse { Message = CurrentRunningTime.ToLocalTime().ToLongDateString() });
-                    break;
+                case QueryType.Status:
+                    var since = CurrentRunningTime - DateTime.UtcNow;
+                    string[] lines2 = new string[] { $"up since {since.TotalSeconds}" };
+                    System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\ServiceStatus.txt", lines2);
+                    return Task.FromResult(new Response(lines2[0]));
             }
-
-            return Task.FromResult(0);
+            return Task.FromResult(new Response("Invalid request"));
         }
     }
 }
