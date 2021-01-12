@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TimerTest
 {
-    public partial class Form1 : Form, INotificationHandler<ServiceResponse>
+    public partial class Form1 : Form
     {
         private List<string> StatusList = new List<string>() { "Waiting" };
         private RadioButton[] ServiceStates = new RadioButton[3];
@@ -63,12 +63,6 @@ namespace TimerTest
                 Message = "Pong",
                 ActionToBeTaken = ServiceController.Action.Stop
             });
-        }
-
-        Task INotificationHandler<ServiceResponse>.Handle(ServiceResponse notification, CancellationToken cancellationToken)
-        {
-            AddNewLog(notification.Message);
-            return Task.CompletedTask;
         }
 
         private void AddNewLog(string logMessage)

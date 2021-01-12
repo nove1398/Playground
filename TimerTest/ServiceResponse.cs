@@ -2,7 +2,7 @@
 
 namespace TimerTest
 {
-    public class ServiceResponse : INotification
+    public class ServiceResponse : IRequest<ServiceResponse>
     {
         public string Message;
     }
