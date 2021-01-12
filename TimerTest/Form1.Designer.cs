@@ -40,7 +40,7 @@ namespace TimerTest
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.serviceRunningRadio = new System.Windows.Forms.RadioButton();
             this.serviceStartingRadio = new System.Windows.Forms.RadioButton();
-            this.serviceStartedRadio = new System.Windows.Forms.RadioButton();
+            this.serviceStoppedRadio = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -102,6 +102,7 @@ namespace TimerTest
             this.stopServiceButton.TabIndex = 4;
             this.stopServiceButton.Text = "Stop Service";
             this.stopServiceButton.UseVisualStyleBackColor = true;
+            this.stopServiceButton.Click += new System.EventHandler(this.StopServiceButton_Click);
             // 
             // statusButton
             // 
@@ -112,13 +113,14 @@ namespace TimerTest
             this.statusButton.TabIndex = 5;
             this.statusButton.Text = "Service Status";
             this.statusButton.UseVisualStyleBackColor = true;
+            this.statusButton.Click += new System.EventHandler(this.statusButton_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButton4);
             this.groupBox1.Controls.Add(this.serviceRunningRadio);
             this.groupBox1.Controls.Add(this.serviceStartingRadio);
-            this.groupBox1.Controls.Add(this.serviceStartedRadio);
+            this.groupBox1.Controls.Add(this.serviceStoppedRadio);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(296, 208);
             this.groupBox1.Name = "groupBox1";
@@ -160,19 +162,19 @@ namespace TimerTest
             this.serviceStartingRadio.Text = "Service Starting";
             this.serviceStartingRadio.UseVisualStyleBackColor = true;
             // 
-            // serviceStartedRadio
+            // serviceStoppedRadio
             // 
-            this.serviceStartedRadio.AutoSize = true;
-            this.serviceStartedRadio.BackColor = System.Drawing.SystemColors.Control;
-            this.serviceStartedRadio.Checked = true;
-            this.serviceStartedRadio.Enabled = false;
-            this.serviceStartedRadio.Location = new System.Drawing.Point(8, 32);
-            this.serviceStartedRadio.Name = "serviceStartedRadio";
-            this.serviceStartedRadio.Size = new System.Drawing.Size(139, 25);
-            this.serviceStartedRadio.TabIndex = 0;
-            this.serviceStartedRadio.TabStop = true;
-            this.serviceStartedRadio.Text = "Service Stopped";
-            this.serviceStartedRadio.UseVisualStyleBackColor = false;
+            this.serviceStoppedRadio.AutoSize = true;
+            this.serviceStoppedRadio.BackColor = System.Drawing.SystemColors.Control;
+            this.serviceStoppedRadio.Checked = true;
+            this.serviceStoppedRadio.Enabled = false;
+            this.serviceStoppedRadio.Location = new System.Drawing.Point(8, 32);
+            this.serviceStoppedRadio.Name = "serviceStoppedRadio";
+            this.serviceStoppedRadio.Size = new System.Drawing.Size(139, 25);
+            this.serviceStoppedRadio.TabIndex = 0;
+            this.serviceStoppedRadio.TabStop = true;
+            this.serviceStoppedRadio.Text = "Service Stopped";
+            this.serviceStoppedRadio.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -211,7 +213,7 @@ namespace TimerTest
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton serviceRunningRadio;
         private System.Windows.Forms.RadioButton serviceStartingRadio;
-        private System.Windows.Forms.RadioButton serviceStartedRadio;
+        private System.Windows.Forms.RadioButton serviceStoppedRadio;
     }
 }
 

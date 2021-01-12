@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -28,6 +29,7 @@ namespace TimerTest
                 .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddMediatR(typeof(Program));
                     services.AddHostedService<TimerCore>();
                     services.AddTransient<Form1>();
                 });
