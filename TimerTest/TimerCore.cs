@@ -15,6 +15,7 @@ namespace TimerTest
         private readonly ILogger<TimerCore> _logger;
         private CancellationTokenSource _stoppingtoken = new CancellationTokenSource();
         private DateTime CurrentRunningTime;
+        private bool ShouldStart = false;
 
         public TimerCore(ILogger<TimerCore> logger)
         {
@@ -37,7 +38,7 @@ namespace TimerTest
 
         private async Task DoWork(CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && ShouldStart)
             {
                 Debug.WriteLine("Ran");
                 await Task.Delay(1000, cancellationToken);
@@ -49,12 +50,15 @@ namespace TimerTest
             switch (request.queryType)
             {
                 case QueryType.Start:
+                    ShouldStart = true;
                     return Task.FromResult(new Response("Service started"));
 
                 case QueryType.Stop:
                     string[] lines = new string[] { $"Stopped at: {DateTime.UtcNow}" };
                     System.IO.File.AppendAllLines(@"C:\Users\Public\Documents\ServiceStopped.txt", lines);
+                    ShouldStart = false;
                     _stoppingtoken.Cancel();
+
                     return Task.FromResult(new Response("Service started"));
 
                 case QueryType.Status:

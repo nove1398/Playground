@@ -27,7 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieBlazor", "CookieBlazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieAPI", "CookieAPI\CookieAPI.csproj", "{A1B425F0-6A74-46AD-B0BB-16A8B6CC00A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTest", "TimerTest\TimerTest.csproj", "{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimerTest", "TimerTest\TimerTest.csproj", "{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generic Repository Example", "Generic Repository Example\Generic Repository Example.csproj", "{90AAF6BC-0011-4EBF-B684-F3B7BDED2586}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRServer", "SignalRServer\SignalRServer.csproj", "{573E0185-10BA-4456-BF4B-7CC88CA76BA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalClient", "SignalClient\SignalClient.csproj", "{C7D3A921-9E7F-453D-B456-A3FEA8F94FE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +89,18 @@ Global
 		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01764C18-EED3-4BFA-8E34-5EA9C30C2D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AAF6BC-0011-4EBF-B684-F3B7BDED2586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AAF6BC-0011-4EBF-B684-F3B7BDED2586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AAF6BC-0011-4EBF-B684-F3B7BDED2586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AAF6BC-0011-4EBF-B684-F3B7BDED2586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573E0185-10BA-4456-BF4B-7CC88CA76BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573E0185-10BA-4456-BF4B-7CC88CA76BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573E0185-10BA-4456-BF4B-7CC88CA76BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573E0185-10BA-4456-BF4B-7CC88CA76BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D3A921-9E7F-453D-B456-A3FEA8F94FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D3A921-9E7F-453D-B456-A3FEA8F94FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D3A921-9E7F-453D-B456-A3FEA8F94FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D3A921-9E7F-453D-B456-A3FEA8F94FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

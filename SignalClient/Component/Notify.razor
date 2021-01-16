@@ -1,0 +1,26 @@
+﻿@inject INotificationCenter NotificationCenter
+
+<h3>@Message</h3>
+
+@code {
+
+    private string Message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await NotificationCenter.InitSocket();
+
+        await NotificationCenter.RegisterReceiver("ReceiveMessage", (user, message) =>
+        {
+            Console.WriteLine($"{user}{message}");
+            Message = message;
+            StateHasChanged();
+        });
+        await NotificationCenter.RegisterReceiver("Test", (user, message) =>
+        {
+            Console.WriteLine($"{user}{message}");
+            Message = message;
+            StateHasChanged();
+        });
+    }
+}

@@ -2,7 +2,7 @@
 
 namespace TimerTest
 {
-    public class ServiceController : INotification
+    public class ServiceRequest : INotification
     {
         public string Message;
         public Action ActionToBeTaken;
