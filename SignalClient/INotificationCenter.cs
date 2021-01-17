@@ -12,5 +12,11 @@ namespace SignalClient
         Task Send(string request, string message);
 
         Task RegisterReceiver(string listenFor, Action<string, string> func);
+
+        Task RegisterReceiver<T>(string listenFor, Action<T> func);
+
+        Task Dispose();
+
+        bool IsConnected();
     }
 }

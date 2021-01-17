@@ -1,19 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using SignalRServer.Hubs;
-using System;
-using System.Collections.Generic;
+
+using SignalRServer.Services;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SignalRServer
 {
@@ -29,23 +24,27 @@ namespace SignalRServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IStudentService, StudentService>();
+            services.AddHostedService<StudentWorker>();
+
+            services.AddDbContext<MyDatabaseContext>(options =>
+                            options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:44315", "http://localhost:60890");
+                        builder.WithOrigins("https://localhost:44315", "https://localhost:5001");
                         builder.AllowCredentials();
                         builder.AllowAnyMethod();
                         builder.AllowAnyHeader();
                     });
             });
             services.AddControllers();
-            services.AddSignalR();
+            services.AddSignalR(opts => opts.EnableDetailedErrors = true);
             services.AddResponseCompression(opts =>
             {
-                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-                    new[] { "application/octet-stream" });
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
             });
             services.AddSwaggerGen(c =>
             {
@@ -73,8 +72,7 @@ namespace SignalRServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chathub");
-                endpoints.MapHub<NotificationHub>("/notify");
+                endpoints.MapHub<StudentHub>("/hubs/students");
             });
         }
     }

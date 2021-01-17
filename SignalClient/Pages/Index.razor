@@ -19,10 +19,7 @@
 
 <ul id="messagesList">
 
-    @foreach (var message in messages)
-    {
-        <li>@message</li>
-    }
+    <SignalClient.Component.Notify></SignalClient.Component.Notify>
 </ul>
 
 @code {
@@ -35,7 +32,6 @@
 
     }
 
-    Task Submit() => Submit2();
-    Task Submit2() => notes.Send("Test", messageInput);
+    Task Submit() => notes.Send(userInput, messageInput);
 
 }

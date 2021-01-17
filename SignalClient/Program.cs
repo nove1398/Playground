@@ -14,7 +14,7 @@ namespace SignalClient
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<INotificationCenter, NotificationCenter>();
+            builder.Services.AddScoped<INotificationCenter, NotificationCenter>();
             await builder.Build().RunAsync();
         }
     }

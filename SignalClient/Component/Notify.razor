@@ -1,26 +1,58 @@
 ﻿@inject INotificationCenter NotificationCenter
+@implements IDisposable
 
-<h3>@Message</h3>
+<h1>@Broadcast</h1>
+<h1>@Student.Name</h1>
+<h3>@Student.Age</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Subject Id</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var grade in Student.Grades)
+        {
+            <tr>
+                <td>@grade.ID</td>
+                <td>@grade.Score</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
+    /*
+    */
+    private StudentObject Student = new StudentObject();
+    private string Broadcast;
 
-    private string Message;
+    public async void Dispose()
+    {
+        await NotificationCenter.Dispose();
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
         await NotificationCenter.InitSocket();
 
-        await NotificationCenter.RegisterReceiver("ReceiveMessage", (user, message) =>
+        Student.UpdatedInstance += (e, args) =>
         {
-            Console.WriteLine($"{user}{message}");
-            Message = message;
             StateHasChanged();
-        });
-        await NotificationCenter.RegisterReceiver("Test", (user, message) =>
+        };
+
+        //Message listeners
+        await NotificationCenter.RegisterReceiver<StudentObject>("SendStudentInfo", (student) =>
         {
-            Console.WriteLine($"{user}{message}");
-            Message = message;
+            Student.UpdateStudent(student);
+        });
+        await NotificationCenter.RegisterReceiver<string>("SendBroadcastMessage", (message) =>
+        {
+            Broadcast = message;
             StateHasChanged();
         });
     }
+
 }
