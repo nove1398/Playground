@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 @inject INotificationCenter notes
+@implements IAsyncDisposable
 <div class="form-group">
     <label>
         User:
@@ -14,6 +15,7 @@
     </label>
 </div>
 <button @onclick="Submit">Send</button>
+<button @onclick="Submit3">Get Users</button>
 
 <hr>
 
@@ -32,6 +34,13 @@
 
     }
 
-    Task Submit() => notes.Send(userInput, messageInput);
+    public async ValueTask DisposeAsync()
+    {
+        await notes.Dispose();
+    }
+
+    Task Submit() => notes.Send("SendUserMessage", messageInput);
+    Task Submit2() => notes.Send("SendBroadcastMessage", messageInput);
+    Task Submit3() => notes.Send("SendUserlist");
 
 }

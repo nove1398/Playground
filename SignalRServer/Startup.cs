@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
+using SignalRServer.HubFilters;
+using SignalRServer.Queue;
 using SignalRServer.Services;
 using System.Linq;
 
@@ -26,6 +28,8 @@ namespace SignalRServer
         {
             services.AddSingleton<IStudentService, StudentService>();
             services.AddHostedService<StudentWorker>();
+            services.AddHostedService<QueueService>();
+            services.AddSingleton<IBackgroundQueue, BackgroundQueue>();
 
             services.AddDbContext<MyDatabaseContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
@@ -40,8 +44,15 @@ namespace SignalRServer
                         builder.AllowAnyHeader();
                     });
             });
-            services.AddControllers();
-            services.AddSignalR(opts => opts.EnableDetailedErrors = true);
+            services.AddControllers(opts =>
+            {
+                opts.Filters.Add(typeof(UserActivityFilter));
+            });
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.AddFilter<ChatFilter>();
+            });
+            services.AddSingleton<ChatFilter>();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });

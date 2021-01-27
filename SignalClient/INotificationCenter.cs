@@ -11,6 +11,8 @@ namespace SignalClient
 
         Task Send(string request, string message);
 
+        Task Send(string request);
+
         Task RegisterReceiver(string listenFor, Action<string, string> func);
 
         Task RegisterReceiver<T>(string listenFor, Action<T> func);

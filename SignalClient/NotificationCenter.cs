@@ -21,10 +21,11 @@ namespace SignalClient
         {
             if (IsConnected())
             {
-                await Dispose();
+                return;
             }
 
             hubConnection = new HubConnectionBuilder()
+                .WithAutomaticReconnect()
                 .WithUrl("https://localhost:7171/hubs/students")
                 .Build();
 
@@ -39,12 +40,15 @@ namespace SignalClient
 
         public Task RegisterReceiver<T>(string listenFor, Action<T> func) => Task.FromResult(hubConnection.On<T>(listenFor, func));
 
-        public async Task Dispose()
+        public Task Dispose()
         {
-            await hubConnection?.StopAsync();
-            await DisposeAsync();
+            return hubConnection.StopAsync();
         }
 
         public bool IsConnected() => hubConnection?.State == HubConnectionState.Connected;
+
+        public Task Send(string request) => hubConnection.SendAsync(request);
     }
+
+    public record UserAgent(string connectionId, string nickname);
 }

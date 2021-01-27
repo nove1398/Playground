@@ -1,5 +1,4 @@
 ﻿@inject INotificationCenter NotificationCenter
-@implements IDisposable
 
 <h1>@Broadcast</h1>
 <h1>@Student.Name</h1>
@@ -28,12 +27,6 @@
     private StudentObject Student = new StudentObject();
     private string Broadcast;
 
-    public async void Dispose()
-    {
-        await NotificationCenter.Dispose();
-
-    }
-
     protected override async Task OnInitializedAsync()
     {
         await NotificationCenter.InitSocket();
@@ -51,6 +44,16 @@
         await NotificationCenter.RegisterReceiver<string>("SendBroadcastMessage", (message) =>
         {
             Broadcast = message;
+            StateHasChanged();
+        });
+
+        await NotificationCenter.RegisterReceiver<List<UserAgent>>("SendUserlist", (message) =>
+        {
+            foreach (var user in message)
+            {
+                Console.WriteLine($"{user.connectionId} {user.nickname}");
+
+            }
             StateHasChanged();
         });
     }
