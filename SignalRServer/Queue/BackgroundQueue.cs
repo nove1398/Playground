@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace SignalRServer.Queue
     {
         private ConcurrentQueue<Func<CancellationToken, Task>> Tasks;
         private SemaphoreSlim signal;
+        private readonly ILogger<BackgroundQueue> _logger;
 
-        public BackgroundQueue()
+        public BackgroundQueue(ILogger<BackgroundQueue> logger)
         {
             Tasks = new ConcurrentQueue<Func<CancellationToken, Task>>();
             signal = new SemaphoreSlim(0);
+            _logger = logger;
         }
 
         public async Task<Func<CancellationToken, Task>> PopQueue(CancellationToken cancellationToken)
@@ -37,6 +40,7 @@ namespace SignalRServer.Queue
         {
             Tasks.Enqueue(task);
             signal.Release();
+            _logger.LogInformation($"Started queue");
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SignalRServer.Controllers
         };
 
         private readonly MyDatabaseContext _context;
-        private readonly IBackgroundQueue _queue;
+        private IBackgroundQueue _queue;
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IHubContext<StudentHub> _hub;
@@ -40,7 +40,7 @@ namespace SignalRServer.Controllers
 
         [Trimmer]
         [HttpGet]
-        public async Task<IActionResult> Get([FromForm] Tester data)
+        public async Task<IActionResult> GetAsync([FromForm] Tester data)
         {
             var grades = new List<Grade> { new Grade { Score = 10 }, new Grade { Score = 11 }, new Grade { Score = 12 }, new Grade { Score = 13 } };
             var student = new Student
@@ -50,12 +50,27 @@ namespace SignalRServer.Controllers
                 Grades = grades
             };
             _context.Student.Add(student);
+            await _context.SaveChangesAsync();
+            /* val = await _context.Student.AsNoTracking()
+                                         .Select(stu => new StudentObject { ID = stu.ID, Grades = stu.Grades.ToList(), Age = stu.Age, Name = stu.Name })
+                                         .Take(100)
+                                         .ToListAsync(cancellationToken: token);*/
             //_context.SaveChanges();
-            var val = await _context.Student.AsNoTracking()
-                                            .Select(stu => new StudentObject { ID = stu.ID, Grades = stu.Grades.ToList(), Age = stu.Age, Name = stu.Name })
-                                            .Take(100)
-                                            .ToListAsync();
-
+            var val = new List<StudentObject>();
+            _queue.QueueTask(async token =>
+            {
+                await Task.Delay(1000);
+                _logger.LogInformation("Sub Task");
+                await Task.Delay(1000);
+                _logger.LogInformation("Done");
+            });
+            _queue.QueueTask(async token =>
+            {
+                await Task.Delay(1000);
+                _logger.LogInformation("Sub Task2");
+                await Task.Delay(1000);
+                _logger.LogInformation("Done2");
+            });
             return Ok(new
             {
                 Message = val

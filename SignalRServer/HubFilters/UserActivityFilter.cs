@@ -46,11 +46,11 @@ namespace SignalRServer.HubFilters
                  }
              }*/
 
-            _logger.LogInformation(user);
-            _logger.LogInformation(url);
-            _logger.LogInformation(ipAddress);
-            _logger.LogInformation($"{queryParams} ");
-            _logger.LogInformation(JsonSerializer.Serialize(data));
+            /* _logger.LogInformation(user);
+             _logger.LogInformation(url);
+             _logger.LogInformation(ipAddress);
+             _logger.LogInformation($"{queryParams} ");
+             _logger.LogInformation(JsonSerializer.Serialize(data));*/
 
             //Store data gathered in DB as ActivityModel
         }
