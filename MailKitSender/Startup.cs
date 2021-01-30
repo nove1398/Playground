@@ -1,12 +1,12 @@
-using GAPI2.Controllers;
+using MailKitSender.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProtoBuf.Grpc.Server;
 
-namespace GAPI2
+namespace MailKitSender
 {
     public class Startup
     {
@@ -20,7 +20,18 @@ namespace GAPI2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCodeFirstGrpc();
+            services.Configure<EmailOptions>(Configuration.GetSection(EmailOptions.Email));
+
+            //Form config
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddHostedService<MailFetchService>();
+
             services.AddControllers();
         }
 
@@ -40,7 +51,6 @@ namespace GAPI2
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapControllers();
             });
         }
