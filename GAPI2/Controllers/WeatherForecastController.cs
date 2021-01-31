@@ -17,7 +17,7 @@ namespace GAPI2.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok("Success");
         }
     }
 }
