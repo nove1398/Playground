@@ -1,12 +1,13 @@
 ﻿using Common;
 using EasyNetQ;
 using System;
+using System.Threading.Tasks;
 
 namespace RabbitConsumer
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async System.Threading.Tasks.Task Main(string[] args)
         {
             using var bus = RabbitHutch.CreateBus("host=localhost");
             bus.PubSub.Subscribe<Person>("test", HandleTextMessage);

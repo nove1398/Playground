@@ -20,9 +20,11 @@ namespace RabbitSend
             Console.WriteLine("Enter a message. 'Quit' to quit.");
             while ((input = Console.ReadLine()) != "q")
             {
-                HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Get, $"{input}");
-                var resp = await client.SendAsync(msg);
-                var data = await resp.Content.ReadAsStringAsync();
+                // HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Get, $"{input}");
+                //var resp = await client.SendAsync(msg);
+                // var data = await resp.Content.ReadAsStringAsync();
+
+                var data = await bus.Rpc.RequestAsync<Person, Person>(new Person { Name = input });
                 Console.WriteLine(data);
             }
         }

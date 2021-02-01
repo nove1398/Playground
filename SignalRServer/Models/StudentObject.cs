@@ -11,5 +11,6 @@ namespace SignalRServer.Models
         public string Name { get; set; }
         public int Age { get; set; }
         public List<Grade> Grades { get; set; }
+        public ClassRoom ClassRoom { get; set; }
     }
 }

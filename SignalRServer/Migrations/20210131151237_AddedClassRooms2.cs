@@ -1,11 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SignalRServer.Migrations
 {
-    public partial class Init2 : Migration
+    public partial class AddedClassRooms2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ClassRooms",
+                columns: table => new
+                {
+                    ClassRoomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassRooms", x => x.ClassRoomId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Grade",
                 columns: table => new
@@ -26,11 +41,17 @@ namespace SignalRServer.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Age = table.Column<int>(type: "int", nullable: false)
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    ClassRoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Student", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Student_ClassRooms_ClassRoomId",
+                        column: x => x.ClassRoomId,
+                        principalTable: "ClassRooms",
+                        principalColumn: "ClassRoomId");
                 });
 
             migrationBuilder.CreateTable(
@@ -61,6 +82,11 @@ namespace SignalRServer.Migrations
                 name: "IX_GradeStudent_StudentsID",
                 table: "GradeStudent",
                 column: "StudentsID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_ClassRoomId",
+                table: "Student",
+                column: "ClassRoomId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -73,6 +99,9 @@ namespace SignalRServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "ClassRooms");
         }
     }
 }

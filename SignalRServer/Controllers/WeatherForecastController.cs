@@ -51,12 +51,11 @@ namespace SignalRServer.Controllers
             };
             _context.Student.Add(student);
             await _context.SaveChangesAsync();
-            /* val = await _context.Student.AsNoTracking()
-                                         .Select(stu => new StudentObject { ID = stu.ID, Grades = stu.Grades.ToList(), Age = stu.Age, Name = stu.Name })
-                                         .Take(100)
-                                         .ToListAsync(cancellationToken: token);*/
-            //_context.SaveChanges();
-            var val = new List<StudentObject>();
+            var val = await _context.Student.AsNoTracking()
+                                        .Select(stu => new StudentObject { ID = stu.ID, Grades = stu.Grades.ToList(), Age = stu.Age, Name = stu.Name })
+                                        .Take(100)
+                                        .ToListAsync();
+
             _queue.QueueTask(async token =>
             {
                 await Task.Delay(1000);
@@ -75,6 +74,25 @@ namespace SignalRServer.Controllers
             {
                 Message = val
             });
+        }
+
+        [HttpPost("{id:int}/{stuId:int}")]
+        public async Task<IActionResult> UpdateStudent(int id, int stuId)
+        {
+            var val = await _context.ClassRooms.Include(y => y.Students).FirstOrDefaultAsync(x => x.ClassRoomId == id);
+            var stu = await _context.Student.FindAsync(stuId);
+            val.Students.Add(stu);
+
+            //val.Students = new List<Student> { stu };
+
+            await _context.SaveChangesAsync();
+
+            var val2 = await _context.Student.AsNoTracking()
+                                        .Select(stu => new StudentObject { ID = stu.ID, Grades = stu.Grades.ToList(), Age = stu.Age, Name = stu.Name, ClassRoom = stu.ClassRoom })
+                                        .Take(100)
+                                        .ToListAsync();
+
+            return Ok(val2);
         }
     }
 

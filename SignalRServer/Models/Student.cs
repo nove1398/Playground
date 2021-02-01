@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SignalRServer.Models
 {
@@ -10,6 +7,9 @@ namespace SignalRServer.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+
+        public int? ClassRoomId { get; set; }
+        public ClassRoom ClassRoom { get; set; }
 
         public ICollection<Grade> Grades { get; set; }
     }
