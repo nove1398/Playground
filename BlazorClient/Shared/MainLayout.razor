@@ -1,0 +1,52 @@
+﻿@inherits LayoutComponentBase
+@inject IMessageService MessageService
+@implements IDisposable
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        </div>
+
+        <div class="content px-4">
+
+            @Body
+
+            @foreach (var message in messages)
+            {
+                <div class="alert alert-sm alert-info">@message</div>
+            }
+        </div>
+    </div>
+</div>
+
+@code{
+    private List<string> messages = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        // subscribe to OnMessage event
+        MessageService.OnMessage += MessageHandler;
+    }
+
+    public void Dispose()
+    {
+        // unsubscribe from OnMessage event
+        MessageService.OnMessage -= MessageHandler;
+    }
+
+    private void MessageHandler(string message)
+    {
+        if (message != null)
+            messages.Add(message);
+        else
+            messages.Clear();
+
+        Console.WriteLine("Message");
+        StateHasChanged();
+    }
+}

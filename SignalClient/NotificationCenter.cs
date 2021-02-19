@@ -40,9 +40,9 @@ namespace SignalClient
 
         public Task RegisterReceiver<T>(string listenFor, Action<T> func) => Task.FromResult(hubConnection.On<T>(listenFor, func));
 
-        public Task Dispose()
+        public async Task Dispose()
         {
-            return hubConnection.StopAsync();
+            await hubConnection.StopAsync();
         }
 
         public bool IsConnected() => hubConnection?.State == HubConnectionState.Connected;

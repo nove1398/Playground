@@ -1,0 +1,45 @@
+﻿@page "/"
+@inject HttpClient Client
+@using System.Text;
+@using System.Linq;
+@inject IJSRuntime JS
+@inject IMessageService MessageService
+
+<h1>Hello, world!</h1>
+
+    Welcome to your new app.
+@cookieData
+
+<button @onclick="Login" class="btn btn-primary">HTTP</button>
+<button @onclick="Test" class="btn btn-primary">Test</button>
+<button @onclick="SendMessage" class="btn btn-primary">Message</button>
+
+<form action="https://localhost:5005/viewer" method="post">
+    <input type="submit" value="Submit" />
+</form>
+@code{
+    private string cookieData;
+
+    async Task Login()
+    {
+        var content = new StringContent("{\"name\":\"John Doe\",\"age\":33}", Encoding.UTF8, "application/json");
+        var response = await Client.PostAsync("viewer", content);
+
+        cookieData = await response.Content.ReadAsStringAsync();
+        //await JS.InvokeAsync<string>("Functions", "test", "test2");
+        StateHasChanged();
+    }
+
+    async Task Test()
+    {
+        await JS.InvokeVoidAsync("Functions2");
+        // var response = await Client.PostAsync("api/chat", new StringContent(""));
+
+    }
+
+    private void SendMessage()
+    {
+
+        MessageService.SendMessage("Message from Home Component to Main Layout Component!");
+    }
+}

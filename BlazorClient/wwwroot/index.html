@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="referrer" content="same-origin">
+    <meta name="credentials" content="include">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BlazorClient</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="BlazorClient.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">Loading...</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        window.Functions = function (a, b) {
+            axios.post('https://localhost:5005/viewer', {
+                firstName: a,
+                lastName: b
+            },
+                { withCredentials: true });
+
+        }
+        window.Functions2 = function () {
+            axios.get('https://localhost:5005/viewer', { withCredentials: true })
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                });
+        }
+    </script>
+</body>
+</html>
