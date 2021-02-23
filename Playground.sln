@@ -51,6 +51,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRClient", "SignalRCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorClient", "BlazorClient\BlazorClient.csproj", "{8A71DECB-E79C-4E47-996E-4D27F8F3F00B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppAuth", "BlazorAppAuth\BlazorAppAuth.csproj", "{3717300D-961E-4672-872A-6A39B3241364}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthenticationFilter", "CustomAuthenticationFilter\CustomAuthenticationFilter.csproj", "{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +153,14 @@ Global
 		{8A71DECB-E79C-4E47-996E-4D27F8F3F00B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A71DECB-E79C-4E47-996E-4D27F8F3F00B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A71DECB-E79C-4E47-996E-4D27F8F3F00B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3717300D-961E-4672-872A-6A39B3241364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3717300D-961E-4672-872A-6A39B3241364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3717300D-961E-4672-872A-6A39B3241364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3717300D-961E-4672-872A-6A39B3241364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
