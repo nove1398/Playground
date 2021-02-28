@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorClient", "BlazorClien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppAuth", "BlazorAppAuth\BlazorAppAuth.csproj", "{3717300D-961E-4672-872A-6A39B3241364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthenticationFilter", "CustomAuthenticationFilter\CustomAuthenticationFilter.csproj", "{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomAuthenticationFilter", "CustomAuthenticationFilter\CustomAuthenticationFilter.csproj", "{22343B3A-A681-4F7F-A3FB-0AC2CB4B3196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

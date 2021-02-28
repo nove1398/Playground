@@ -1,16 +1,14 @@
 ﻿@page "/counter"
+@inject IAlertService AlertService
 
 <h1>Counter</h1>
-
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button @onclick="@(() => AlertService.Success(message: "TESTING", autoClose: false, keepAfterRouteChange: true))">Test Alert</button>
 
 @code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
+    void PostAlert()
     {
-        currentCount++;
+
+        AlertService.Success(message: "TESTING", autoClose: false, keepAfterRouteChange: true);
     }
 }

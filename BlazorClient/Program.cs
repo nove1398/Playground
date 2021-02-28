@@ -23,6 +23,7 @@ namespace BlazorClient
             builder.Services.AddOptions();
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("API"));
             builder.Services.AddTransient<IMessageService, MessageService>();
+            builder.Services.AddScoped<IAlertService, AlertService>();
             await builder.Build().RunAsync();
         }
     }
