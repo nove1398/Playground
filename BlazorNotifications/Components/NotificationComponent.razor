@@ -1,0 +1,107 @@
+﻿@implements IDisposable
+@inject INotificationService AlertService
+@inject NavigationManager NavigationManager
+
+<div class="notification-panel">
+    @foreach (var alert in NotificationList)
+    {
+        <div class="@CssClass(alert)" role="alert">
+            <a class="close" @onclick="@(() => RemoveAlert(alert))">&times;</a>
+            <span>@alert.Text</span>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool Fade { get; set; } = true;
+
+    private List<NotificationModel> NotificationList = new List<NotificationModel>();
+
+    protected override void OnInitialized()
+    {
+        // subscribe to new alerts and location change events
+        AlertService.OnAlert += OnAlert;
+        NavigationManager.LocationChanged += OnLocationChange;
+    }
+
+    public void Dispose()
+    {
+        // unsubscribe from alerts and location change events
+        AlertService.OnAlert -= OnAlert;
+        NavigationManager.LocationChanged -= OnLocationChange;
+    }
+
+    private async void OnAlert(NotificationModel alert)
+    {
+
+        // add alert to array
+        NotificationList.Add(alert);
+        StateHasChanged();
+
+        // auto close alert if required
+        if (alert.AutoClose)
+        {
+            await Task.Delay(3000);
+            RemoveAlert(alert);
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnLocationChange(object sender, LocationChangedEventArgs e)
+    {
+
+        // remove alerts without the 'KeepAfterRouteChange' flag set to true
+        NotificationList.RemoveAll(x => !x.KeepAfterRouteChange);
+
+        // set the 'KeepAfterRouteChange' flag to false for the
+        // remaining alerts so they are removed on the next clear
+        //NotificationList.ForEach(x => x.KeepAfterRouteChange = false);
+
+        NotificationList.ForEach(x => Console.WriteLine(x.KeepAfterRouteChange));
+    }
+
+    private async void RemoveAlert(NotificationModel alert)
+    {
+        // check if already removed to prevent error on auto close
+        if (!NotificationList.Contains(alert)) return;
+
+        if (alert.ShouldFade)
+        {
+            // fade out alert
+            alert.Fade = true;
+
+            // remove alert after faded out
+            await Task.Delay(250);
+            NotificationList.Remove(alert);
+        }
+        else
+        {
+            // remove alert
+            NotificationList.Remove(alert);
+        }
+
+        StateHasChanged();
+    }
+
+    private string CssClass(NotificationModel alert)
+    {
+        if (alert == null) return null;
+
+        var classes = new List<string> { "alert", "alert-dismissable", "mt-3" };
+
+        var alertTypeClass = new Dictionary<NotificationType, string>();
+        alertTypeClass[NotificationType.Success] = "alert-success";
+        alertTypeClass[NotificationType.Error] = "alert-danger";
+        alertTypeClass[NotificationType.Info] = "alert-info";
+        alertTypeClass[NotificationType.Warning] = "alert-warning";
+
+        classes.Add(alertTypeClass[alert.Type]);
+
+        if (alert.Fade)
+            classes.Add("fade");
+
+        return string.Join(' ', classes);
+    }
+}
