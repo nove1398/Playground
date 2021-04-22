@@ -9,22 +9,26 @@ namespace CustomAuthenticationFilter.Models
         {
         }
 
-        public static Dictionary<int, UserModel> UserModels = new Dictionary<int, UserModel>
+        public static Dictionary<int, UserModel> UserModels = new()
         {
-            {1,new UserModel(1,"joe","test@emai.com")}
+            { 1, new UserModel(1, "joe", "test@emai.com") },
+            { 2, new UserModel(1, "sam", "test2@emai.com") },
+            { 3, new UserModel(1, "gayle", "test3@emai.com") },
         };
 
-        public static Dictionary<int, Role> RoleModels = new Dictionary<int, Role>
+        public static Dictionary<int, Role> RoleModels = new()
         {
-            {1, new Role(1,"Admin", "biggest boss") }
+            { 1, new Role(1, "Admin", "biggest boss") },
+            { 2, new Role(1, "Manager", "small boss") },
+            { 3, new Role(1, "User", "user") },
         };
 
-        public static Dictionary<string, Permission> PermissionModels = new Dictionary<string, Permission>
+        public static Dictionary<string, Permission> PermissionModels = new()
         {
-            {"Read", new Permission(1, "Permission.Auth.Read") },
-            {"Write", new Permission(2, "Permission.Auth.Write") },
-            {"Delete", new Permission(3, "Permission.Auth.Delete") },
-            {"Update", new Permission(4, "Permission.Auth.Update") },
+            { "Read", new Permission(1, "Permission.Authy.Read") },
+            { "Write", new Permission(2, "Permission.Authy.Write") },
+            { "Delete", new Permission(3, "Permission.Authy.Delete") },
+            { "Update", new Permission(4, "Permission.Authy.Update") },
         };
 
         public static string AddNewPermission(string module, string ability)

@@ -36,6 +36,7 @@ namespace CustomAuthenticationFilter.Controllers
                 new Claim(ClaimTypes.Role, MockDB.RoleModels[1].RoleName),
                 new Claim("Permission", MockDB.PermissionModels["Read"].Name),
                 new Claim("Permission", MockDB.PermissionModels["Write"].Name),
+                new Claim("Permission", MockDB.PermissionModels["Delete"].Name),
             };
             var idententity = new ClaimsIdentity(claimList, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(idententity);
@@ -46,20 +47,21 @@ namespace CustomAuthenticationFilter.Controllers
         }
 
         [HttpGet("products/view")]
-        [PermissionsFilter("Permission.Auth.Read")]
+        [PermissionsFilter("Permission.Authy.Read")]
         public IActionResult Viewer()
         {
-            return Ok(User.Identity.Name);
+            return Ok(User.Identity.Name + " read data");
         }
 
         [HttpPost("products/write")]
-        [PermissionsFilter("Permission.Auth.Read", "Permission.Auth.Write")]
+        [PermissionsFilter("Permission.Authy.Read", "Permission.Authy.Write")]
         public IActionResult Writer()
         {
-            return Ok(User.Identity.Name);
+            return Ok(User.Identity.Name + " wrote data");
         }
 
         [HttpGet("products/delete")]
+        [PermissionsFilter("Permission.Authy.Delte")]
         public IActionResult Deleter()
         {
             return Ok(DateTime.Now.ToLongDateString());
@@ -77,7 +79,7 @@ namespace CustomAuthenticationFilter.Controllers
             var output = new List<string>();
             foreach (var controller in values)
             {
-                output.Add(controller.GetProperty("ModuleName").GetValue(controller, null) + "");
+                output.Add(controller.GetProperty("ModuleName").GetValue("ModuleName", null).ToString());
             }
             return Ok(output);
         }

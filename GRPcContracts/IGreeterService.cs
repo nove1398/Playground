@@ -2,7 +2,7 @@
 using System.ServiceModel;
 using System.Threading.Tasks;
 
-namespace GAPI2.Controllers
+namespace GRPcContracts
 {
     [ServiceContract]
     public interface IGreeterService

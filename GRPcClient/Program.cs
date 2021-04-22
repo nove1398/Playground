@@ -1,5 +1,5 @@
-﻿using GAPI2.Controllers;
-using Grpc.Net.Client;
+﻿using Grpc.Net.Client;
+using GRPcContracts;
 using ProtoBuf.Grpc.Client;
 using System;
 

@@ -18,6 +18,8 @@ namespace CustomAuthenticationFilter.Security
 
         public Task<AuthorizationPolicy> GetDefaultPolicyAsync() => FallbackPolicyProvider.GetDefaultPolicyAsync();
 
+        public Task<AuthorizationPolicy> GetFallbackPolicyAsync() => FallbackPolicyProvider.GetDefaultPolicyAsync();
+
         public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
         {
             if (policyName.StartsWith("Permission", StringComparison.OrdinalIgnoreCase))
@@ -28,7 +30,5 @@ namespace CustomAuthenticationFilter.Security
             }
             return FallbackPolicyProvider.GetPolicyAsync(policyName);
         }
-
-        public Task<AuthorizationPolicy> GetFallbackPolicyAsync() => FallbackPolicyProvider.GetDefaultPolicyAsync();
     }
 }

@@ -1,23 +1,12 @@
 using CustomAuthenticationFilter.Data;
-using CustomAuthenticationFilter.Models;
 using CustomAuthenticationFilter.Security;
-using CustomAuthenticationFilter.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CustomAuthenticationFilter
 {
@@ -47,8 +36,8 @@ namespace CustomAuthenticationFilter
             });
 
             //services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-            services.AddTransient<ISenitFxManagerService, SenitFxManagerService>();
-            // services.AddSingleton<IAuthorizationHandler, AuthorizedAppHandler>();
+            //services.AddTransient<ISenitFxManagerService, SenitFxManagerService>();
+            //services.AddSingleton<IAuthorizationHandler, AuthorizedAppHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

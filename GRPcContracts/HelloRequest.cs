@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 
-namespace GAPI2.Controllers
+namespace GRPcContracts
 {
     [DataContract]
     public class HelloRequest

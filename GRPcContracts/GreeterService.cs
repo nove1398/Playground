@@ -1,7 +1,7 @@
 ﻿using ProtoBuf.Grpc;
 using System.Threading.Tasks;
 
-namespace GAPI2.Controllers
+namespace GRPcContracts
 {
     public class GreeterService : IGreeterService
     {
