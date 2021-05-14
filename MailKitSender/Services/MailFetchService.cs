@@ -23,7 +23,7 @@ namespace MailKitSender.Services
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                _emailService.ReadMail(10);
+               await _emailService.ReadMail(10);
                 await Task.Delay(TimeSpan.FromMinutes(2));
             }
         }
