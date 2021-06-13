@@ -57,7 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomAuthenticationFilter"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorNotifications", "BlazorNotifications\BlazorNotifications.csproj", "{EB22EEB1-1BAF-4932-AE02-A36AC747F5DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permutrations", "Permutrations\Permutrations.csproj", "{A65AD4D0-2669-4176-9755-D00E86722321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permutrations", "Permutrations\Permutrations.csproj", "{A65AD4D0-2669-4176-9755-D00E86722321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthTest", "JWTAuthTest\JWTAuthTest.csproj", "{A06DF8A8-99EF-46F9-A63C-7146BBF5500F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAuthTestAPI", "JWTAuthTestAPI\JWTAuthTestAPI.csproj", "{06ACC662-E2D4-4C20-8202-F8B68F4A5240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +177,14 @@ Global
 		{A65AD4D0-2669-4176-9755-D00E86722321}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A65AD4D0-2669-4176-9755-D00E86722321}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A65AD4D0-2669-4176-9755-D00E86722321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06DF8A8-99EF-46F9-A63C-7146BBF5500F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06DF8A8-99EF-46F9-A63C-7146BBF5500F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06DF8A8-99EF-46F9-A63C-7146BBF5500F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06DF8A8-99EF-46F9-A63C-7146BBF5500F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06ACC662-E2D4-4C20-8202-F8B68F4A5240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06ACC662-E2D4-4C20-8202-F8B68F4A5240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06ACC662-E2D4-4C20-8202-F8B68F4A5240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06ACC662-E2D4-4C20-8202-F8B68F4A5240}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
