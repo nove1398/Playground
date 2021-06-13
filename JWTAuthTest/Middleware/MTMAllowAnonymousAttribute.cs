@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JWTAuthTestAPI.Middleware
+namespace JWTAuthTest.Middleware
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class MTMAllowAnonymousAttribute : Attribute

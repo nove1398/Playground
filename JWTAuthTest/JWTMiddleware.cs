@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
@@ -25,8 +23,6 @@ namespace JWTAuthTest
         public async Task Invoke(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-            var t = _appSettings.Secret;
 
             if (token != null)
                 AttachUserToContext(context, token);
