@@ -1,14 +1,15 @@
-﻿using LdapForNet;
+﻿using LinqToLdap;
+using LinqToLdap.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-//using Novell.Directory.Ldap;
 using System;
 using System.Collections.Generic;
-
+using System.DirectoryServices.Protocols;
 using System.Linq;
+using System.Net;
+using System.Security.Principal;
 using System.Threading.Tasks;
-using static LdapForNet.Native.Native;
 
 namespace LDAP.Controllers
 {
@@ -29,89 +30,58 @@ namespace LDAP.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IActionResult Get()
         {
+            var conn = new LdapConnection("192.168.111.76");
+            try
+            {
+                conn.Bind(new NetworkCredential("efranklin", "Jerome1398@", "MTWDOMAIN"));
+            }
+            catch (LdapException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest("Invlaid credentials");
+            }
+
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Ok(Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
-            .ToArray();
-        }
-
-        public class ADUser
-        {
-            public string LoginName { get; set; }
-            public string DisplayName { get; set; }
-            public string Created { get; set; }
-            public DateTime Updated { get; set; }
-            public string EmailAddress { get; set; }
-            public string[] Groups { get; set; }
-            public string Mobile { get; set; }
-            public string Extension { get; set; }
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public string Department { get; set; }
+            .ToArray());
         }
 
         [HttpGet("test")]
         public async Task<IActionResult> Get2()
         {
-            using var cn = new LdapConnection();
+            IDirectoryContext context = new DirectoryContext();
+            var user = new ADUser();
+            user = context.Query<ADUser>()
+                .FirstOrDefault(u => u.FirstName == "rohan");
 
-            // connect
-            cn.Connect("ldap://dc1.mtw.gov.jm", LdapVersion.LDAP_VERSION3);
-            // bind using kerberos credential cache file
-            cn.Bind(userDn: "efranklin", password: "Jerome1398@");
-            // call ldap op
-            //var entries = cn.Search("dc=efranklin,dc=com", "(objectClass=*)");
-            var me = await cn.WhoAmI();
-            var data = await cn.SearchAsync("DC=mtw,DC=gov,DC=jm",
-                "((sAMAccountName=efr*))");
-            /*new string[] {
-                    "whenChanged",
-                    "memberOf",
-                    "whenCreated",
-                    "mail",
-                    "userPrincipalName",
-                    "mobile",
-                    "homePhone",
-                    "ipPhone",
-                    "displayName",
-                    "sAMAccountName",
-                    "department",
-                    "description",
-                    "lastLogonTimestamp",}*/
-            List<ADUser> infos = new();
-            foreach (var item in data)
+            return Ok(new JsonResult(new
             {
-                foreach (var pair in item.Attributes
-                                        .Select(_ => new { _.Key, Value = _.Value.FirstOrDefault() }))
-                {
-                    infos.Add(new ADUser
-                    {
-                        /*
-                         Updated = user.GetWhenChanged().Value,
-                         Groups = user.GetMemberOf().ToArray(),
-                         DisplayName = user.GetAttribute("displayName").GetValue<List<string>>()[0],
-                         //Created = user.GetAttribute("whenCreated").GetValue<List<string>>().FirstOrDefault(),
-                           EmailAddress = user.GetAttribute("mail").GetValue<List<string>>().FirstOrDefault() ??
-                                       user.GetAttribute("userPrincipalName").GetValue<List<string>>().FirstOrDefault() ??
-                                       "N/A",
-                           LoginName = user.GetAttribute("sAMAccountName").GetValue<List<string>>().FirstOrDefault(),
-                           Mobile = user.GetAttribute("mobile").GetValue<List<string>>().FirstOrDefault() ??
-                                       user.GetAttribute("homePhone").GetValue<List<string>>().FirstOrDefault() ??
-                                       "N/A",
-                           Extension = user.GetAttribute("ipPhone").GetValue<List<string>>().FirstOrDefault(),
-                           Department = user.GetAttribute("department").GetValue<List<string>>().FirstOrDefault(),
-                           Description = user.GetAttribute("description").GetValue<List<string>>().FirstOrDefault(),
-                           Title = user.GetAttribute("title").GetValue<List<string>>().FirstOrDefault(),*/
-                    });
-                }
-            }
-            return Ok(data);
+                user.Guid,
+                user.CommonName,
+                user.FirstName,
+                user.LastName,
+                CreatedAt = user.WhenCreated.ToShortDateString(),
+                UpdatedAt = user.WhenChanged.ToShortDateString(),
+                user.Title,
+                user.Office,
+                user.TelephoneNumber,
+                user.MobileNumber,
+                user.Extension,
+                user.EmployeeNumber,
+                user.EmployeeId,
+                user.Department,
+                user.Supervisor,
+                user.TitleDescription,
+                user.Notes,
+                user.Email,
+            }).Value);
         }
     }
 }
