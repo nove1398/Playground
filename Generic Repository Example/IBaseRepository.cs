@@ -8,9 +8,9 @@ namespace Generic_Repository_Example
 {
     public interface IBaseRepository<T>
     {
-        IQueryable<T> FindAll();
+        IEnumerable<T> FindAll();
 
-        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        IEnumerable<T> FindByCondition(Expression<Func<T, bool>> expression);
 
         T Create(T entity);
 

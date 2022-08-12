@@ -19,12 +19,12 @@ namespace Generic_Repository_Example
             return entity;
         }
 
-        public IQueryable<T> FindAll()
+        public IEnumerable<T> FindAll()
         {
             return (IQueryable<T>)DataBaseRepository.Data.AsQueryable();
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public IEnumerable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
             throw new NotImplementedException();
         }

@@ -18,6 +18,12 @@ namespace LDAP
         [DirectoryAttribute("cn", ReadOnlyOnAdd = true, ReadOnlyOnSet = true)]
         public string CommonName { get; set; }
 
+        [DirectoryAttribute("userprincipalname", ReadOnlyOnAdd = true, ReadOnlyOnSet = true)]
+        public string UserPrincipalName { get; set; }
+
+        [DirectoryAttribute("samaccountName", ReadOnlyOnAdd = true, ReadOnlyOnSet = true)]
+        public string SamAccountName { get; set; }
+
         [DirectoryAttribute("objectguid", ReadOnlyOnAdd = true, ReadOnlyOnSet = true)]
         public Guid Guid { get; set; }
 

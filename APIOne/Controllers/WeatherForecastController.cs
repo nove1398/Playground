@@ -29,6 +29,12 @@ namespace APIOne.Controllers
             this.authenticator = authenticator;
         }
 
+        [HttpGet("test2")]
+        public async Task<string> Get2Async()
+        {
+            return "oop";
+        }
+
         [HttpGet("test")]
         public async Task<string> GetAsync()
         {

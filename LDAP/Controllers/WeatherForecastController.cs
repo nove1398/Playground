@@ -64,6 +64,8 @@ namespace LDAP.Controllers
             return Ok(new JsonResult(new
             {
                 user.Guid,
+                user.UserPrincipalName,
+                user.SamAccountName,
                 user.CommonName,
                 user.FirstName,
                 user.LastName,

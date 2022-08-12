@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32519.111
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "Gateway\Gateway.csproj", "{DE383941-8A1B-47D3-B811-CC0EFB8B5E5E}"
 EndProject
@@ -63,7 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAuthTest", "JWTAuthTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAuthTestAPI", "JWTAuthTestAPI\JWTAuthTestAPI.csproj", "{06ACC662-E2D4-4C20-8202-F8B68F4A5240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LDAP", "LDAP\LDAP.csproj", "{BC28E993-9FF0-4AB1-9CC7-E05881F3868C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LDAP", "LDAP\LDAP.csproj", "{BC28E993-9FF0-4AB1-9CC7-E05881F3868C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzTest", "QuartzTest\QuartzTest.csproj", "{33854D3C-5BEC-4A6E-9A0E-5D01EBE29AFD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tests", "tests\tests.csproj", "{6D185E3E-C8A6-4637-AA64-E1DB5E177344}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +195,14 @@ Global
 		{BC28E993-9FF0-4AB1-9CC7-E05881F3868C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC28E993-9FF0-4AB1-9CC7-E05881F3868C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC28E993-9FF0-4AB1-9CC7-E05881F3868C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33854D3C-5BEC-4A6E-9A0E-5D01EBE29AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33854D3C-5BEC-4A6E-9A0E-5D01EBE29AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33854D3C-5BEC-4A6E-9A0E-5D01EBE29AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33854D3C-5BEC-4A6E-9A0E-5D01EBE29AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D185E3E-C8A6-4637-AA64-E1DB5E177344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D185E3E-C8A6-4637-AA64-E1DB5E177344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D185E3E-C8A6-4637-AA64-E1DB5E177344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D185E3E-C8A6-4637-AA64-E1DB5E177344}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
