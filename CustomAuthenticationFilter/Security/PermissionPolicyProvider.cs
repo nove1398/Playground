@@ -22,13 +22,11 @@ namespace CustomAuthenticationFilter.Security
 
         public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
         {
-            if (policyName.StartsWith("Permission", StringComparison.OrdinalIgnoreCase))
-            {
-                var policy = new AuthorizationPolicyBuilder();
-                policy.AddRequirements(new PermissionsRequirement(policyName));
-                return Task.FromResult(policy.Build());
-            }
-            return FallbackPolicyProvider.GetPolicyAsync(policyName);
+            if (!policyName.StartsWith("Permission", StringComparison.OrdinalIgnoreCase))
+                return FallbackPolicyProvider.GetPolicyAsync(policyName);
+            var policy = new AuthorizationPolicyBuilder();
+            policy.AddRequirements(new PermissionsRequirement(policyName));
+            return Task.FromResult(policy.Build());
         }
     }
 }

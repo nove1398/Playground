@@ -20,26 +20,27 @@ namespace CustomAuthenticationFilter.Filter
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext filterContext)
         {
-            if (filterContext != null)
+            if (filterContext == null)
             {
-                if (!filterContext.HttpContext.Request.Headers.TryGetValue("X-FX-Key", out var apiKey))
-                {
-                    filterContext.HttpContext.Response.StatusCode = 401;
-                    filterContext.Result = new JsonResult(new { Error = "Error no key provided" });
+                return;
+            }
 
-                    return;
-                }
+            if (!filterContext.HttpContext.Request.Headers.TryGetValue("X-FX-Key", out var apiKey))
+            {
+                filterContext.HttpContext.Response.StatusCode = 401;
+                filterContext.Result = new JsonResult(new { Error = "Error no key provided" });
 
-                //Validate key
-                var _senitFxManager = filterContext.HttpContext.RequestServices.GetRequiredService<ISenitFxManagerService>();
+                return;
+            }
 
-                var currentKey = await _senitFxManager.GetApiKey(apiKey);
-                if (currentKey == null)
-                {
-                    filterContext.HttpContext.Response.StatusCode = 401;
-                    filterContext.Result = new JsonResult(new { Error = "Not authorized" });
-                    return;
-                }
+            //Validate key
+            var _senitFxManager = filterContext.HttpContext.RequestServices.GetRequiredService<ISenitFxManagerService>();
+
+            var currentKey = await _senitFxManager.GetApiKey(apiKey);
+            if (currentKey == null)
+            {
+                filterContext.HttpContext.Response.StatusCode = 401;
+                filterContext.Result = new JsonResult(new { Error = "Not authorized" });
             }
         }
     }
